@@ -1,17 +1,56 @@
 [
   {
-    "id": 1753104431236,
-    "name": "Sushil Kumar",
-    "email": "sushil@example.com"
+    "id": 1,
+    "name": "sushil",
+    "password": "user123",
+    "role": "USER"
   },
   {
-    "id": 1753105670042,
-    "name": "thakur ",
-    "email": "sushil@example.com"
+    "id": 2,
+    "name": "rahul",
+    "password": "user123",
+    "role": "ADMIN"
   },
   {
-    "id": 1753106021857,
-    "name": "rahul kumar",
-    "email": "rahul@example.com"
+    "id": 3,
+    "name": "sushil",
+    "password": "admin123",
+    "role": "ADMIN"
+  },
+  {
+    "id": 4,
+    "name": "umesh",
+    "password": "user123",
+    "role": "USER"
+  },
+  {
+    "id": 5,
+    "name": "newuser",
+    "password": "user123",
+    "role": "USER"
+  },
+  {
+    "id": 6,
+    "name": "usms",
+    "password": "user123",
+    "role": "USER"
+  },
+  {
+    "id": 7,
+    "name": "sushil",
+    "password": "12345",
+    "role": "admin"
+  },
+  {
+    "id": 8,
+    "name": "sushil hk",
+    "password": "admin123",
+    "role": "USER"
+  },
+  {
+    "id": 9,
+    "name": "nakshit",
+    "password": "user123",
+    "role": "USER"
   }
 ]
