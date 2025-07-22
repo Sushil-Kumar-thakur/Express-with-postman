@@ -1,5 +1,8 @@
 node_modules
 .env
+.env
+runtext.txt
+
 # Logs
 logs
 *.log

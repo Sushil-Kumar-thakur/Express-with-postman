@@ -43,14 +43,32 @@
   },
   {
     "id": 8,
-    "name": "sushil hk",
+    "name": "sushil h",
     "password": "admin123",
     "role": "USER"
   },
   {
     "id": 9,
-    "name": "nakshit",
-    "password": "user123",
+    "name": "radha - karsina ",
+    "password": "admin123",
+    "role": "ADMIN"
+  },
+  {
+    "id": 10,
+    "name": "radha - karsina ji 123",
+    "password": "admin123",
     "role": "USER"
+  },
+  {
+    "id": 11,
+    "name": "radha - karsina ji ",
+    "password": "ghfhfhgfh",
+    "role": "USER"
+  },
+  {
+    "id": 12,
+    "name": "rakeshdgjg",
+    "password": "admin1234",
+    "role": "ADMIN"
   }
 ]
