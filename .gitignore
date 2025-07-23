@@ -2,7 +2,9 @@ node_modules
 .env
 .env
 runtext.txt
-
+users.json
+users.json/
+/users.json
 # Logs
 logs
 *.log
