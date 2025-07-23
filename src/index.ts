@@ -53,7 +53,7 @@ const saveUsers = async (users: User[]): Promise<void> => {
   try {
     await fs.writeFile(dataPath, JSON.stringify(users, null, 2));
     console.log("✅ Users saved successfully!");
-  }  catch (err: unknown) {
+  } catch (err: unknown) {
     if (err instanceof Error) {
       console.error("❌ Error reading users:", err.message);
     } else {
@@ -68,7 +68,7 @@ app.get("/", (_req: Request, res: Response) => {
 });
 
 // Add new user
-app.post("/users",checkUserExists ,async (req: Request, res: Response) => {
+app.post("/users", checkUserExists, async (req: Request, res: Response) => {
   try {
     const { name, password, role } = req.body;
     const users = await loadUsers();
@@ -85,13 +85,13 @@ app.post("/users",checkUserExists ,async (req: Request, res: Response) => {
     await saveUsers(users);
     res.status(201).json(newUser);
   } catch (err: unknown) {
-    if(err instanceof Error) {  
+    if (err instanceof Error) {
       console.error("❌ Error creating user:", err.message);
       res.status(500).json({ message: "Error creating user" });
-      } else {
-        console.error("❌ Unknown error occurred");
-        res.status(500).json({ message: "Error creating user" });
-        } 
+    } else {
+      console.error("❌ Unknown error occurred");
+      res.status(500).json({ message: "Error creating user" });
+    }
   }
 });
 
@@ -150,28 +150,28 @@ app.post("/login", async (req: Request, res: Response) => {
       role: user.role,
       name: user.name,
     });
-  } catch (err: unknown ) {
+  } catch (err: unknown) {
     if (err instanceof Error) {
       console.error(err.message);
       res.status(500).json({ error: "Internal Server Error" });
-      } else {
-        console.error(err);
-        res.status(500).json({ error: "Internal Server Error" });
-        }
-      }
+    } else {
+      console.error(err);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  }
 });
 
 // Admin dashboard
 app.post("/admin", checkUserIsAdmin, (req: RequestWithUser, res: Response) => {
-  const admin   = req.user; // Optionally type properly
-    if (!admin) {
+  const admin = req.user; // Optionally type properly
+  if (!admin) {
     return res.status(401).json({ error: "Unauthorized" });
   }
   res.json({ message: `Welcome to admin ${admin.name} it's your dashboard` });
 });
 
 // Admin - view all users
-app.get( 
+app.get(
   "/admin/users",
   checkUserIsAdmin,
   async (_req: Request, res: Response) => {
