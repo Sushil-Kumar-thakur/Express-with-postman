@@ -3,18 +3,12 @@
     "id": 1,
     "name": "sushil",
     "password": "user123",
-    "role": "USER"
+    "role": "ADMIN"
   },
   {
     "id": 2,
     "name": "rahul",
     "password": "user123",
-    "role": "ADMIN"
-  },
-  {
-    "id": 3,
-    "name": "sushil",
-    "password": "admin123",
     "role": "ADMIN"
   },
   {
@@ -33,18 +27,6 @@
     "id": 6,
     "name": "usms",
     "password": "user123",
-    "role": "USER"
-  },
-  {
-    "id": 7,
-    "name": "sushil",
-    "password": "12345",
-    "role": "admin"
-  },
-  {
-    "id": 8,
-    "name": "sushil h",
-    "password": "admin123",
     "role": "USER"
   },
   {
@@ -118,5 +100,34 @@
     "name": "rakesh.",
     "password": "admin123",
     "role": "ADMIN"
+  },
+  {
+    "id": 21,
+    "name": "rakesh noliu",
+    "password": "user123",
+    "role": "USER"
+  },
+  {
+    "id": 22,
+    "name": "rakesh noliu j",
+    "password": "user123",
+    "role": "USER"
+  },
+  {
+    "id": 23,
+    "name": "rakesh noliu ",
+    "role": "USER"
+  },
+  {
+    "id": 24,
+    "name": "rakesh noliu ytruu f",
+    "password": "user123",
+    "role": "USER"
+  },
+  {
+    "id": 25,
+    "name": "rahuld",
+    "password": "user123",
+    "role": "USER"
   }
 ]

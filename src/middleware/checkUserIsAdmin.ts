@@ -9,16 +9,17 @@ interface User {
   name: string;
   password: string;
   role: string;
-  [key: string]: any; // allows additional properties
 }
-
+interface RequestWithUser extends Request {
+  user?: User;
+}
 const loadUsers = async (): Promise<User[]> => {
   const data = await fs.readFile(dataPath, "utf-8");
   return JSON.parse(data);
 };
 
 export const checkUserIsAdmin = async (
-  req: Request,
+  req: RequestWithUser,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
@@ -31,7 +32,7 @@ export const checkUserIsAdmin = async (
   }
 
   try {
-    const users = await loadUsers();
+    const users: User[] = await loadUsers();
 
     const user = users.find((u) => u.name === name && u.password === password);
 
@@ -48,10 +49,14 @@ export const checkUserIsAdmin = async (
     }
 
     // Attach user to request (extend Request type if needed)
-    (req as any).user = user;
+    req.user = user;
     next();
-  } catch (err: any) {
-    console.error("Middleware error:", err.message);
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error("checkUserIsAdmin Middleware error:", err.message);
+    } else {
+      console.error("checkUserIsAdmin Unknown middleware error:", err);
+    }
     res.status(500).json({ error: "Server error" });
   }
 };

@@ -23,21 +23,27 @@ interface User {
   name: string;
   password: string;
   role: string;
-  [key: string]: any;
 }
-
+interface RequestWithUser extends Request {
+  user?: User;
+}
 // Middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "public")));
 
 // Load users from file
 const loadUsers = async (): Promise<User[]> => {
   try {
     const data = await fs.readFile(dataPath, "utf-8");
     return JSON.parse(data);
-  } catch (err: any) {
-    console.error("❌ Error reading users:", err.message);
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error("❌ Error reading users:", err.message);
+    } else {
+      console.error("❌ Unknown error occurred");
+    }
     return [];
   }
 };
@@ -47,8 +53,12 @@ const saveUsers = async (users: User[]): Promise<void> => {
   try {
     await fs.writeFile(dataPath, JSON.stringify(users, null, 2));
     console.log("✅ Users saved successfully!");
-  } catch (err: any) {
-    console.error("❌ Error saving users:", err.message);
+  }  catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error("❌ Error reading users:", err.message);
+    } else {
+      console.error("❌ Unknown error occurred");
+    }
   }
 };
 
@@ -58,12 +68,13 @@ app.get("/", (_req: Request, res: Response) => {
 });
 
 // Add new user
-app.post("/users", checkUserExists, async (req: Request, res: Response) => {
+app.post("/users",checkUserExists ,async (req: Request, res: Response) => {
   try {
     const { name, password, role } = req.body;
     const users = await loadUsers();
 
     const newUser: User = {
+      // id: Date.now(),
       id: users.length ? users[users.length - 1].id + 1 : 1,
       name,
       password,
@@ -73,8 +84,14 @@ app.post("/users", checkUserExists, async (req: Request, res: Response) => {
     users.push(newUser);
     await saveUsers(users);
     res.status(201).json(newUser);
-  } catch (err: any) {
-    res.status(500).json({ error: "Internal server error" });
+  } catch (err: unknown) {
+    if(err instanceof Error) {  
+      console.error("❌ Error creating user:", err.message);
+      res.status(500).json({ message: "Error creating user" });
+      } else {
+        console.error("❌ Unknown error occurred");
+        res.status(500).json({ message: "Error creating user" });
+        } 
   }
 });
 
@@ -98,7 +115,7 @@ app
 
     user.name = name || user.name;
     user.password = password || user.password;
-    user.role = (role || user.role).toUpperCase();   // 👈 convert to uppercase
+    user.role = (role || user.role).toUpperCase(); // 👈 convert to uppercase
     await saveUsers(users);
     res.json(user);
   })
@@ -133,19 +150,28 @@ app.post("/login", async (req: Request, res: Response) => {
       role: user.role,
       name: user.name,
     });
-  } catch (err: any) {
-    res.status(500).json({ error: "Internal server error" });
-  }
+  } catch (err: unknown ) {
+    if (err instanceof Error) {
+      console.error(err.message);
+      res.status(500).json({ error: "Internal Server Error" });
+      } else {
+        console.error(err);
+        res.status(500).json({ error: "Internal Server Error" });
+        }
+      }
 });
 
 // Admin dashboard
-app.post("/admin", checkUserIsAdmin, (req: Request, res: Response) => {
-  const user = (req as any).user; // Optionally type properly
-  res.json({ message: `Welcome to admin ${user.name} it's your dashboard` });
+app.post("/admin", checkUserIsAdmin, (req: RequestWithUser, res: Response) => {
+  const admin   = req.user; // Optionally type properly
+    if (!admin) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+  res.json({ message: `Welcome to admin ${admin.name} it's your dashboard` });
 });
 
 // Admin - view all users
-app.get(
+app.get( 
   "/admin/users",
   checkUserIsAdmin,
   async (_req: Request, res: Response) => {
