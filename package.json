@@ -3,7 +3,7 @@
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "nodemon",
+  "dev": "nodemon --watch src --ext ts --exec \"npx tsc && node dist/index.js\"",
     "start": "node dist/index.js"
   },
   "dependencies": {

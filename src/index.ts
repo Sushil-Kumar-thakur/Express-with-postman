@@ -57,16 +57,6 @@ app.get("/", (_req: Request, res: Response) => {
   res.json({ message: "Welcome to Express API with import syntax + login" });
 });
 
-// Get all users (Admin Only)
-app.get("/users", checkUserIsAdmin, async (_req: Request, res: Response) => {
-  try {
-    const users = await loadUsers();
-    res.json(users);
-  } catch (error) {
-    res.status(500).json({ message: "Error loading users" });
-  }
-});
-
 // Add new user
 app.post("/users", checkUserExists, async (req: Request, res: Response) => {
   try {
@@ -77,7 +67,7 @@ app.post("/users", checkUserExists, async (req: Request, res: Response) => {
       id: users.length ? users[users.length - 1].id + 1 : 1,
       name,
       password,
-      role: (role || "USERff").toUpperCase(), // 👈 convert to uppercase
+      role: (role || "USER").toUpperCase(), // 👈 convert to uppercase
     };
 
     users.push(newUser);
@@ -108,8 +98,7 @@ app
 
     user.name = name || user.name;
     user.password = password || user.password;
-    user.role = role || user.role;
-
+    user.role = (role || user.role).toUpperCase();   // 👈 convert to uppercase
     await saveUsers(users);
     res.json(user);
   })
@@ -152,7 +141,7 @@ app.post("/login", async (req: Request, res: Response) => {
 // Admin dashboard
 app.post("/admin", checkUserIsAdmin, (req: Request, res: Response) => {
   const user = (req as any).user; // Optionally type properly
-  res.json({ message: `Welcome to admin ${user.name} dashboard` });
+  res.json({ message: `Welcome to admin ${user.name} it's your dashboard` });
 });
 
 // Admin - view all users

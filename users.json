@@ -70,5 +70,53 @@
     "name": "rakeshdgjg",
     "password": "admin1234",
     "role": "ADMIN"
+  },
+  {
+    "id": 13,
+    "name": "kaku",
+    "password": "user123",
+    "role": "USERFF"
+  },
+  {
+    "id": 14,
+    "name": "lal chand ",
+    "password": "admin123",
+    "role": "ADMIN"
+  },
+  {
+    "id": 15,
+    "name": "noede",
+    "password": "user123",
+    "role": "USERFF"
+  },
+  {
+    "id": 16,
+    "name": "rakesh.",
+    "password": "user123",
+    "role": "USER"
+  },
+  {
+    "id": 17,
+    "name": "qwer",
+    "password": "user123",
+    "role": "USERFF"
+  },
+  {
+    "id": 18,
+    "name": "sunil",
+    "password": "user123",
+    "role": "USER"
+  },
+  {
+    "id": 19,
+    "name": "jinu",
+    "password": "user1234",
+    "role": "admin"
+  },
+  {
+    "id": 20,
+    "name": "rakesh.",
+    "password": "admin123",
+    "role": "ADMIN"
   }
 ]
